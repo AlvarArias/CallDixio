@@ -1,23 +1,3 @@
-# Dixio
+# CallDixio
 
-DIXIO is a mobile application designed to provide users with a comprehensive Swedish-Spanish and Spanish-Swedish dictionary experience. The app is built with a modern and scalable data architecture that allows for seamless integration of different technologies.
-
-One of the key components of DIXIO's architecture is the MVVM (Model-View-ViewModel) pattern. This pattern allows for a separation of concerns between the application's data, its user interface, and the logic that connects the two. The ViewModel acts as an intermediary between the Model (the data) and the View (the user interface), which makes it easier to manage data flow and keep the UI responsive.
-
-To play the word sound, DIXIO uses AVFoundation, Apple's framework for working with audio and video media. The ViewModel retrieves the audio file URL from the Model and passes it to the View, which plays the sound using AVFoundation.
-
-DIXIO uses Combine, Apple's framework for reactive programming, to notify the UI of changes to the URLSession response. The ViewModel subscribes to the response using Combine's Publisher-Subscriber pattern and updates the View accordingly.
-
-Core Data is used to save the words that the user searches for.
-
-DIXIO's Settings View allows the user to change the app's language to Spanish, Swedish, or English (default). This feature is implemented using Apple's Localization framework, which enables the app to display different content based on the user's preferred language. The ViewModel updates the app's language preference in Core Data, and the View displays the content accordingly.
-
-In summary, DIXIO's technical architecture combines several modern technologies to provide users with a seamless and responsive Swedish-Spanish and Spanish-Swedish dictionary experience. The use of MVVM, AVFoundation, Combine, Core Data, and Localization frameworks enables the app to manage data flow, play audio, notify the UI, save user data, and display content in multiple languages.
-
-App screens<br>
-![search copy](https://user-images.githubusercontent.com/7523384/228342631-00e081fb-6af0-4aa9-87ec-50e434dd1477.png)
-![word copy](https://user-images.githubusercontent.com/7523384/228342640-1beacea1-45d0-450d-817e-b02287156ffd.png)
-![savedwords copy](https://user-images.githubusercontent.com/7523384/228342628-f518f84b-5a07-4531-bd36-49e27f95a6f1.png)
-![settings copy](https://user-images.githubusercontent.com/7523384/228342634-46f46565-4c15-4dda-b4f6-d269e2621ee7.png)
-
-<hr>
+"callDixio" is a Swift package that allows developers to easily make API calls to the Lexin online dictionary app, "Dixio". The package provides a simple interface for fetching data from the Dixio JSON API, which offers a comprehensive Swedish-Spanish and Spanish-Swedish dictionary. With "callDixio", developers can quickly and efficiently integrate Dixio's dictionary data into their iOS, macOS, or tvOS app. This Swift package simplifies the process of calling the Dixio API by handling the HTTP requests and parsing the JSON responses, so developers can focus on building their app's user interface and functionality.
