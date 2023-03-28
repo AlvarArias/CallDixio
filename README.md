@@ -13,3 +13,11 @@ Core Data is used to save the words that the user searches for.
 DIXIO's Settings View allows the user to change the app's language to Spanish, Swedish, or English (default). This feature is implemented using Apple's Localization framework, which enables the app to display different content based on the user's preferred language. The ViewModel updates the app's language preference in Core Data, and the View displays the content accordingly.
 
 In summary, DIXIO's technical architecture combines several modern technologies to provide users with a seamless and responsive Swedish-Spanish and Spanish-Swedish dictionary experience. The use of MVVM, AVFoundation, Combine, Core Data, and Localization frameworks enables the app to manage data flow, play audio, notify the UI, save user data, and display content in multiple languages.
+
+App screens<br>
+![search copy](https://user-images.githubusercontent.com/7523384/228342631-00e081fb-6af0-4aa9-87ec-50e434dd1477.png)
+![word copy](https://user-images.githubusercontent.com/7523384/228342640-1beacea1-45d0-450d-817e-b02287156ffd.png)
+![savedwords copy](https://user-images.githubusercontent.com/7523384/228342628-f518f84b-5a07-4531-bd36-49e27f95a6f1.png)
+![settings copy](https://user-images.githubusercontent.com/7523384/228342634-46f46565-4c15-4dda-b4f6-d269e2621ee7.png)
+
+<hr>
