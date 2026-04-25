@@ -107,3 +107,11 @@ struct TargetLang: Hashable, Codable {
     }
 }
 
+// MARK: - LexinError
+public enum LexinError: Error, Equatable {
+    case invalidURL
+    case invalidResponse
+    case noMatch
+    case networkError(String)
+}
+

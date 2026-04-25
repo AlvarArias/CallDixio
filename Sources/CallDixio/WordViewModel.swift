@@ -13,26 +13,36 @@ import Observation
 final class WordViewModel {
 
     var results: [Result] = []
-    var errorMessage: String = ""
+    var error: LexinError? = nil
+
+    private let session: URLSession
+
+    init(session: URLSession = .shared) {
+        self.session = session
+    }
 
     func fetchPosts(word: String, dir: String) async {
+        error = nil
+
         guard let url = URL(string: "http://lexin.nada.kth.se/lexin/service?searchinfo=\(dir),swe_spa,\(word)&output=JSON") else {
-            errorMessage = "Invalid URL"
+            error = .invalidURL
             return
         }
 
         do {
-            let (data, response) = try await URLSession.shared.data(from: url)
+            let (data, response) = try await session.data(from: url)
             guard let httpResponse = response as? HTTPURLResponse,
                   httpResponse.statusCode == 200 else {
-                errorMessage = "Invalid response"
+                error = .invalidResponse
                 return
             }
             let decoded = try JSONDecoder().decode(Words.self, from: data)
             results = decoded.result
-            errorMessage = "OK"
+            if results.isEmpty { error = .noMatch }
+        } catch is DecodingError {
+            error = .noMatch
         } catch {
-            errorMessage = "No word match"
+            self.error = .networkError(error.localizedDescription)
         }
     }
 }

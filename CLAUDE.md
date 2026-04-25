@@ -58,11 +58,21 @@ All `CodingKeys` use `UpperCamelCase` to match the Lexin JSON schema.
 `@Observable @MainActor final class WordViewModel` exposes:
 
 ```swift
-var results: [Result]       // populated after a successful fetch
-var errorMessage: String    // status string: "OK", "No word match", "Invalid URL", etc.
+var results: [Result]    // populated after a successful fetch
+var error: LexinError?   // nil on success, typed error on failure
 
+init(session: URLSession = .shared)               // injectable for testing
 func fetchPosts(word: String, dir: String) async  // triggers a Lexin API call
 ```
+
+`LexinError` cases:
+
+| Case | Causa |
+|------|-------|
+| `.invalidURL` | La URL construida no es válida |
+| `.invalidResponse` | HTTP status != 200 |
+| `.noMatch` | JSON vacío o fallo al decodificar |
+| `.networkError(String)` | Error de red inesperado |
 
 Call from views using `Task { }` or `.task { }`:
 ```swift
@@ -91,7 +101,10 @@ http://lexin.nada.kth.se/lexin/service?searchinfo=<dir>,swe_spa,<word>&output=JS
 |------|-------|----------|
 | `WordViewModel.swift` | ~~`ObservableObject` + Combine~~ — migrado a `@Observable @MainActor` | ✅ Done |
 | `WordViewModel.swift` | ~~`URLSession.dataTask` + `DispatchQueue`~~ — migrado a `async/await` | ✅ Done |
-| `WordViewModel.swift` | ~~`fatalError("Invalid URL")`~~ — reemplazado por `errorMessage` | ✅ Done |
+| `WordViewModel.swift` | ~~`fatalError("Invalid URL")`~~ — reemplazado por `LexinError` | ✅ Done |
+| `WordViewModel.swift` | ~~`errorMessage: String`~~ — reemplazado por `error: LexinError?` | ✅ Done |
+| `WordViewModel.swift` | `URLSession` inyectado vía `init(session:)` para permitir mocks | ✅ Done |
+| `CallDixioTests.swift` | ~~Tests con red real~~ — `MockURLProtocol` cubre todos los casos offline | ✅ Done |
 | `Package.swift` | ~~Swift tools 5.7 / iOS 13~~ — actualizado a tools 6.0 / iOS 26 / Swift 6 | ✅ Done |
 
 ---
@@ -136,10 +149,6 @@ CallDixio/
 ---
 
 ## Next Steps
-
-### Medium-term
-1. Add a mock `URLSession` / `URLProtocol` para que los tests no requieran red
-2. Reemplazar `errorMessage: String` con un enum tipado `LexinError`
 
 ### Long-term
 1. Soporte para pares de idiomas adicionales más allá de `swe_spa`
