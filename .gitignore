@@ -19,3 +19,22 @@ DerivedData/
 
 # Credentials
 .netrc
+
+# Secrets and credentials — never commit
+.env
+.env.*
+!.env.example
+GoogleService-Info*.plist
+*.p8
+*.p12
+*.pem
+*.mobileprovision
+.netrc
+
+# Claude Code — personal/local settings
+.claude/settings.local.json
+
+# Xcode user data
+xcuserdata/
+*.xcuserstate
+.DS_Store
